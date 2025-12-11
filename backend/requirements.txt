@@ -1,0 +1,10 @@
+fastapi
+uvicorn[standard]
+loguru
+pydantic
+pydantic-settings  # <--- 确保添加了这一行
+# 数据库相关
+SQLAlchemy
+pymysql
+asyncmy
+SQLAlchemy[asyncio]
