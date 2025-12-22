@@ -38,20 +38,20 @@ export const routesConfig: RouteConfig[] = [
             permission: 'homeIndex',
             icon: <SvgIcon name="home" />,
           },
-          {
-            path: 'alive',
-            component: () => import('@/pages/alive'),
-            name: 'KeepAlive',
-            permission: 'homeAlive',
-            icon: <SvgIcon name="kun" />,
-          },
-          {
-            path: 'grid',
-            component: () => import('@/pages/grid'),
-            name: '栅格布局',
-            permission: 'homeGrid',
-            icon: <SvgIcon name="grid" />,
-          },
+          // {
+          //   path: 'alive',
+          //   component: () => import('@/pages/alive'),
+          //   name: 'KeepAlive',
+          //   permission: 'homeAlive',
+          //   icon: <SvgIcon name="kun" />,
+          // },
+          // {
+          //   path: 'grid',
+          //   component: () => import('@/pages/grid'),
+          //   name: '栅格布局',
+          //   permission: 'homeGrid',
+          //   icon: <SvgIcon name="grid" />,
+          // },
         ],
       },
       {
@@ -64,7 +64,7 @@ export const routesConfig: RouteConfig[] = [
       },
       {
         path: 'permission',
-        name: '权限',
+        name: '项目管理',
         permission: 'permission',
         icon: <SvgIcon name="lock" />,
         children: [
@@ -75,48 +75,49 @@ export const routesConfig: RouteConfig[] = [
           {
             path: 'route',
             component: () => import('@/pages/permission/route'),
-            name: '路由权限',
+            name: '项目管理',
             permission: 'routePermission',
             icon: <SvgIcon name="menu" />,
           },
-          {
-            path: 'local',
-            component: () => import('@/pages/permission/local'),
-            name: '局部权限',
-            permission: 'localPermission',
-            icon: <SvgIcon name="btn" />,
-          },
+          // {
+          //   path: 'local',
+          //   component: () => import('@/pages/permission/local'),
+          //   name: '局部权限',
+          //   permission: 'localPermission',
+          //   icon: <SvgIcon name="btn" />,
+          // },
         ],
       },
       {
         path: 'router',
-        name: '路由',
+        name: '模型管理',
         permission: 'router',
         icon: <SvgIcon name="route" />,
-        children: [
-          {
-            path: '',
-            redirect: 'dynamic',
-          },
-          {
-            path: 'dynamic',
-            component: () => import('@/pages/router/dynamic'),
-            name: '动态路由',
-            permission: 'routerDynamic',
-            icon: <SvgIcon name="menu2" />,
-          },
-          {
-            path: 'meta',
-            component: () => import('@/pages/router/meta'),
-            name: '动态meta',
-            permission: 'routerMeta',
-            icon: <SvgIcon name="web" />,
-          },
-        ],
+        component: () => import('@/pages/router/dynamic'),
+        // children: [
+        //   {
+        //     path: '',
+        //     redirect: 'dynamic',
+        //   },
+        //   {
+        //     path: 'dynamic',
+        //     component: () => import('@/pages/router/dynamic'),
+        //     name: '动态路由',
+        //     permission: 'routerDynamic',
+        //     icon: <SvgIcon name="menu2" />,
+        //   },
+        //   {
+        //     path: 'meta',
+        //     component: () => import('@/pages/router/meta'),
+        //     name: '动态meta',
+        //     permission: 'routerMeta',
+        //     icon: <SvgIcon name="web" />,
+        //   },
+        // ],
       },
       {
         path: 'table',
-        name: '搜索表格',
+        name: '提示词管理',
         permission: 'tablePage',
         icon: <SvgIcon name="search_table" />,
         children: [

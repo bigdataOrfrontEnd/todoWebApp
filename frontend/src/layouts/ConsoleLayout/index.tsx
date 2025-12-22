@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Outlet } from 'react-router';
 // import KeepAliveOutlet from '@/components/KeepAliveOutlet';
 import SideMenu from '@/layouts/SideMenu';
-import withAuth from '@/components/business/withAuth';
+// import withAuth from '@/components/business/withAuth';
 import Header from '@/layouts/Header';
 import Footer from '@/layouts/Footer';
 import { useModel } from '@zhangsai/model';
@@ -63,8 +63,8 @@ const ConsoleLayout: FC = () => {
     </div>
   );
 };
-
-const ConsoleLayoutStoreProvider =withAuth (() => {
+// TODO:先去除权限限制withAuth
+const ConsoleLayoutStoreProvider = (() => {
   return (
     <Provider>
       <ConsoleLayout />

@@ -17,7 +17,32 @@ const Provider = createProvider<StoreContextType>({
     const { routes } = useRouter(router);
     /** 根据权限和语言生成菜单数据 */
     const { menuItems, flattenMenuItems, allFlattenMenuItems } = useMemo(() => {
-      const ret = generateMenuItems(routes, permissions);
+      const ret = generateMenuItems(routes, {
+        "home": true,               // 首页大类
+        "homeIndex": true,          // 首页-首页
+        "homeAlive": true,          // 首页-KeepAlive
+        "homeGrid": true,           // 首页-栅格布局
+        "profile": true,            // 个人中心
+        "permission": true,         // 权限大类
+        "routePermission": true,    // 权限-路由权限
+        "localPermission": true,    // 权限-局部权限
+        "router": true,             // 路由大类
+        "routerDynamic": true,      // 路由-动态路由
+        "routerMeta": true,         // 路由-动态meta
+        "tablePage": true,          // 搜索表格大类
+        "complexTablePage": true,   // 常见表格
+        "scrollLoadModeTable": true,
+        "scrollLoadModeList": true,
+        "extraSearchModel": true,
+        "formatSearchModel": true,
+        "simpleTablePage": true,
+        "tablePageInModal": true,
+        "customSearchBtn": true,
+        // "nest": true,               // 嵌套路由
+        // "error": true,              // 错误页
+        // "external": true,           // 外链
+        // "separation": true          // 独立布局
+      });
       // console.log('flattenMenuItems: ', ret.flattenMenuItems);
       // console.log('allFlattenMenuItems: ', ret.allFlattenMenuItems);
       return ret;

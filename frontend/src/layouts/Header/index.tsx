@@ -56,10 +56,10 @@ const Header = () => {
         <IconWrap>
           <Github />
         </IconWrap>
-        <Divider orientation="vertical" />
+        {/* <Divider orientation="vertical" />
         <IconWrap>
           <Avatar />
-        </IconWrap>
+        </IconWrap> */}
       </div>
     </header>
   );
