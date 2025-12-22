@@ -1,6 +1,6 @@
 import { Menu } from 'antd';
 import router, { useRouter } from '@/router';
-import type { MenuInfo } from 'rc-menu/lib/interface.d';
+// import type { MenuInfo } from 'rc-menu/lib/interface.d';
 import { useMenuStatus } from './hooks';
 import { baseModel } from '@/models/base';
 import { useModel } from '@zhangsai/model';
@@ -21,7 +21,7 @@ const SideMenu = () => {
     selectedKeys, setSelectedKeys,
   } = useMenuStatus();
 
-  function onClickMenuItem(info: MenuInfo) {
+  function onClickMenuItem(info: any) {
     const { key } = info;
     const clickingRoute = flattenRoutes.get(key);
     if (isMobile) {

@@ -17,7 +17,7 @@ export async function i18nInit() {
     ['zh_Hans']: zh_Hans,
   };
 
-  i18n
+  await i18n
     .use(initReactI18next)
     .init({
       fallbackLng: baseModel.state.language ?? 'zh_Hans',

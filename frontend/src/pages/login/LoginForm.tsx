@@ -16,14 +16,18 @@ const LoginForm = () => {
   const { t: t_login } = useTranslation('login');
 
   const onFinish = () => {
+    
     form.validateFields().then(({ username, password }: FormValues) => {
       httpPostLogin({
         username,
         password,
       }).then(({ data: { data } }) => {
-        lsSetToken(data.accessToken, data.refreshToken, data.expiration);
+        console.log(data);
+        lsSetToken(data.tokens.access, data.tokens.refresh, 1);
         message.success(t_login('登录成功'));
         const reUrl = window.location.search.replace(/^\?/, '').split('&').map(item => item.split('=')).find(([key]) => key === 'reUrl')?.[1];
+        console.log(reUrl);
+        
         router.push(decodeURIComponent(reUrl || '') || '/home');
       }).catch(() => {});
     }).catch(() => {});

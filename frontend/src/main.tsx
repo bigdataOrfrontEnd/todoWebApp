@@ -12,21 +12,6 @@ const basename = import.meta.env.VITE_BASENAME;
 
 enableMapSet();
 
-async function enableMocking() {
-  const { worker } = await import('@/mock/browser');
-  return worker.start({
-    quiet: true,
-    onUnhandledRequest(req, print) {
-      if (new URL(req.url)?.pathname?.startsWith('/api/')) {
-        print.warning();
-      }
-      return;
-    },
-    serviceWorker: {
-      url: `${basename ?? ''}/mockServiceWorker.js`
-    }
-  });
-}
 
 setScrollStyle({
   style: defaultLightMode,
@@ -36,10 +21,6 @@ setScrollStyle({
 const root = createRoot(document.getElementById('root')!);
 const init=async()=>{
   await i18nInit();
-}
-// enableMocking().then(async() => {
-//   await 
-init()
   root.render(
     <HistoryRouter
       history={history}
@@ -50,4 +31,5 @@ init()
       </AntdProvider>
     </HistoryRouter>,
   );
-// });
+}
+init()

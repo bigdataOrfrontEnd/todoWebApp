@@ -18,7 +18,10 @@ interface HttpPostLoginRes {
  * 登录
  */
 export async function httpPostLogin(data: HttpPostLoginReq) {
-  return request.post<API.HttpResult<HttpPostLoginRes>>('/user/login/', data);
+  const res = await request.post<API.HttpResult<any>>('/user/login/', data);
+  console.log(res);
+
+  return request.post<API.HttpResult<any>>('/user/login/', data);
 }
 
 /**

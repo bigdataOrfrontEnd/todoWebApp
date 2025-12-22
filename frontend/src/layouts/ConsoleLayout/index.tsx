@@ -64,7 +64,7 @@ const ConsoleLayout: FC = () => {
   );
 };
 
-const ConsoleLayoutStoreProvider = withAuth(() => {
+const ConsoleLayoutStoreProvider =withAuth (() => {
   return (
     <Provider>
       <ConsoleLayout />
