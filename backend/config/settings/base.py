@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'apps.test',
     # 'apps.projects',
     # 'apps.prompts',
-    # 'apps.models',
+    'apps.models',
     # 'apps.content',
     'apps.users',
 ]
