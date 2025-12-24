@@ -110,7 +110,7 @@ class ModelProviderDetailSerializer(serializers.ModelSerializer):
         return result['total_tokens'] or 0
 
 # 创建的时候需要对字段进行校验
-class ModelProviderCreateUpdateSerializer(serializers.ModelSerializer):
+class ModelProviderCreateSerializer(serializers.ModelSerializer):
     """模型提供商创建/更新序列化器"""
     class Meta:
         model=ModelProvider
@@ -191,7 +191,6 @@ class ModelProviderCreateUpdateSerializer(serializers.ModelSerializer):
             if not extra_config.get('duration'):
                 extra_config['duration'] = 5
             attrs['extra_config'] = extra_config
-
         return attrs
 class ModelProviderUpdateSerializer(serializers.ModelSerializer):
     """模型提供商更新序列化器"""
