@@ -18,5 +18,6 @@ class ModelProviderService:
         Returns:
             创建的模型提供商实例
         """
+        print("Creating model provider with data:", data)
         provider = ModelProvider.objects.create(**data)
         return provider

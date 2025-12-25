@@ -12,7 +12,7 @@ import {
   Col,
   message,
 } from 'antd';
-
+import {httpPostModels} from './API'
 interface ModelFormModalProps {
   open: boolean;
   editingData: any; // 如果为 null 则为添加模式
@@ -22,7 +22,7 @@ interface ModelFormModalProps {
 
 const ModelFormModal: React.FC<ModelFormModalProps> = ({ open, editingData, onCancel, onSuccess }) => {
   const [form] = Form.useForm();
-  const { Text } = Typography; // 必须进行解构
+  const { Text } = Typography; 
   const [submitting, setSubmitting] = useState(false);
   const [providerType, setProviderType] = useState<string>('');
 
@@ -45,28 +45,26 @@ const ModelFormModal: React.FC<ModelFormModalProps> = ({ open, editingData, onCa
   }, [open, editingData, form]);
 
   const handleOk = async () => {
-    try {
-      const values = await form.validateFields();
-      setSubmitting(true);
-      
+    form.validateFields().then(async (values) => {
+        try{
+        setSubmitting(true);
       // 数据结构转换：组装 extra_config
       const { width, height, fps, duration, ...baseData } = values;
       const submitData = {
         ...baseData,
         extra_config: { width, height, fps, duration },
       };
-
-      // 模拟 API 调用
-      console.log('Submitting data:', submitData);
-      message.success(isEdit ? '更新成功' : '创建成功');
-      
-      onSuccess(); // 通知父组件刷新
+        const res= await httpPostModels(submitData);
+        message.success(res.data.message || (isEdit ? '模型更新成功' : '模型添加成功'))
+        onSuccess(); // 通知父组件刷新
     } catch (error) {
-      // 校验失败
-    } finally {
-      setSubmitting(false);
+
+    }finally {
+        setSubmitting(false);  
     }
-  };
+});
+    
+};  
 
   return (
     <Modal
@@ -93,8 +91,13 @@ const ModelFormModal: React.FC<ModelFormModalProps> = ({ open, editingData, onCa
         style={{ marginTop: 16 }}
       >
         <Row gutter={16}>
+        <Col span={12}>
+            <Form.Item label="模型提供商" name="name" rules={[{ required: true }]}>
+              <Input placeholder="例如: 阿里云" />
+            </Form.Item>
+          </Col>
           <Col span={12}>
-            <Form.Item label="模型名称" name="name" rules={[{ required: true }]}>
+            <Form.Item label="模型名称" name="model_name" rules={[{ required: true }]}>
               <Input placeholder="例如: GPT-4" />
             </Form.Item>
           </Col>

@@ -66,6 +66,7 @@ request.interceptors.request.use(
 request.interceptors.response.use(
   (response: AxiosResponse<ResType>) => {
     console.log('http interceptors response success: ', response);
+
     const { code, message: resMessage } = response.data;
     const { silence = false, ignoreResponseIC = false } = response.config;
 

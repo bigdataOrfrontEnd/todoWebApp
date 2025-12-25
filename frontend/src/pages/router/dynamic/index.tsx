@@ -20,6 +20,7 @@ import {
   SwapOutlined
 } from '@ant-design/icons';
 import ModelFormModal from './ModelForm';
+import {httpGetModels} from './API';
 const { Text } = Typography;
 
 const ModelList: React.FC = () => {
@@ -54,6 +55,7 @@ const ModelList: React.FC = () => {
 
   const handleModalSuccess = () => {
     setModalVisible(false);
+
     // 重新加载列表数据
     // fetchData(); 
   };
@@ -64,19 +66,19 @@ const ModelList: React.FC = () => {
 
   const loadProviders = async (currentFilters = filters) => {
     setLoading(true);
-    try {
       const params: any = {};
       if (currentFilters.search) params.search = currentFilters.search;
       if (currentFilters.provider_type) params.provider_type = currentFilters.provider_type;
       if (currentFilters.is_active !== '') params.is_active = currentFilters.is_active === 'true';
       
-      // await dispatch(fetchProviders(params));
-      console.log('Fetching with params:', params);
-    } catch (error) {
-      message.error('加载模型列表失败');
-    } finally {
+     const res= await httpGetModels();
+     if(res.status===200){
       setLoading(false);
-    }
+      setProviders(res.request || []);
+     }else{
+      message.error('加载模型列表失败');
+      setLoading(false);
+     }
   };
 
   // 处理操作逻辑

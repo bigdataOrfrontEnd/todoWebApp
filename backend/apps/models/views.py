@@ -1,6 +1,7 @@
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from .models import ModelUsageLog,ModelProvider
+from django.db.models import Value, CharField, IntegerField
 from .serializers import (
     ModelProviderListSerializer,
     ModelProviderDetailSerializer,
@@ -23,7 +24,9 @@ class ModelProviderViewSet(viewsets.ModelViewSet):
         根据请求参数过滤查询集
         支持按模型提供商ID和项目ID过滤
         """
-        return ModelProvider.objects.all().prefetch_related('usage_logs')
+        qs=ModelProvider.objects.all().prefetch_related('usage_logs')
+        qs = qs.annotate(code=Value(200, output_field=IntegerField()))
+        return Response(qs,status=status.HTTP_200_OK)
     
     def get_serializer_class(self):
         """根据动作选择序列化器"""
@@ -41,7 +44,9 @@ class ModelProviderViewSet(viewsets.ModelViewSet):
         """创建模型提供商"""
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
+        print(serializer.validated_data)
         provider=ModelProviderService.create_provider(serializer.validated_data)
+        print(provider)
         response_serializer=ModelProviderDetailSerializer(provider)
         return Response(
             response_serializer.data,

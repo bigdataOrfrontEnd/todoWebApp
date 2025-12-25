@@ -38,6 +38,7 @@ class ModelProviderListSerializer(serializers.ModelSerializer):
         return obj.usage_logs.filter(created_at__gte=seven_day_age).count()
     
 class ModelProviderDetailSerializer(serializers.ModelSerializer):
+    print("进入ModelProviderDetailSerializer")
     """模型提供商详情序列化器 - 完整信息"""
     provider_type_display=serializers.CharField(
         source='get_provider_type_display',
@@ -55,7 +56,7 @@ class ModelProviderDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model=ModelProvider
         fields=[
-          'id', 'name', 'provider_type', 'provider_type_display',
+          'id', 'name', 'provider_type', 'provider_type_display','code','message',
             'api_url', 'api_key', 'model_name', 'executor_class',
             # LLM专用参数
             'max_tokens', 'temperature', 'top_p',
@@ -74,6 +75,7 @@ class ModelProviderDetailSerializer(serializers.ModelSerializer):
 
         
     def to_representation(self, instance):
+        print("进入to_representation方法",self,instance)
         """隐藏API Key的完整内容"""
         data = super().to_representation(instance)
 
@@ -86,17 +88,17 @@ class ModelProviderDetailSerializer(serializers.ModelSerializer):
         return obj.usage_logs.count()
     def get_success_count(self,obj):
         """获取成功调用次数"""
-        return obj.usage_logs.filter(obj.status == 'success').count()
+        return obj.usage_logs.filter(status = 'success').count()
 # 这是拿到数据库的数据进行计算，给前端展示的
     def get_failed_count(self,obj):
         """获取失败调用次数"""
-        return obj.usage_logs.filter(obj.status == 'failed').count()
+        return obj.usage_logs.filter(status = 'failed').count()
     def get_success_rate(self,obj):
         """获取成功率"""
         total=obj.usage_logs.count()
         if total==0:
             return 0.0
-        success=obj.usage_logs.filter(obj.status == 'success').count()
+        success=obj.usage_logs.filter(status = 'success').count()
         return round((success/total)*100,2)
     def get_avg_latency_ms(self, obj):
         """获取平均延迟"""
